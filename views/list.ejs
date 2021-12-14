@@ -1,0 +1,46 @@
+<%- include("header")-%>
+<body>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <a href="/">Main List</a>
+    <% allLists.forEach((listName) => {%>
+      <a href="/<%=listName%>"><%=listName%></a>
+    <%});%>
+    <a href="/about">About</a>
+
+  </div>
+
+  <div id="main">
+    <span style="font-size:30px; cursor:pointer" onclick="openNav()">&nbsp; &nbsp; &#9776;</span>
+    <span style="font-size:30px; cursor:pointer"> &nbsp; &nbsp;To Do List</span>
+  </div>
+<div class="box-heading" id="heading">
+  <h1><%= listTitle %></h1>
+  <h2><%= greeting %></h2>
+</div>
+
+<div class="box-list" >
+  <%newListItems.forEach((item) => {%>
+  <form action="delete" method="post" class="scroll">
+    <div class="item">
+      <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+      <p><%=item.name%></p>
+    </div>
+    <input type="hidden" name="listName" value="<%= listTitle %>"></input>
+  </form>
+  <%});%>
+</div>
+
+<div class="box-input" >
+
+   <form  action="/" method="post">
+     <div class="item">
+    <input type="text" name="task" placeholder="Add new task" autocomplete="off" required oninvalid="Please enter task before adding!" >
+    <button id="add" type="submit" name="list" value="<%= listTitle %>"> + </button>
+    </div>
+  </form>
+
+  </div>
+
+<%- include("footer")-%>
